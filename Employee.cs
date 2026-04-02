@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EmployeeManagementSystem
 {
@@ -8,6 +9,7 @@ namespace EmployeeManagementSystem
         public string FullName { get; set; }
         public string Department { get; set; }
         public string Role { get; set; }
+        public List<LeaveRecord> Leaves { get; set; }
 
         public Employee(int id, string fullName, string department, string role)
         {
@@ -15,6 +17,7 @@ namespace EmployeeManagementSystem
             FullName = fullName;
             Department = department;
             Role = role;
+            Leaves = new List<LeaveRecord>();
         }
     }
 }
