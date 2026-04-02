@@ -20,7 +20,7 @@ namespace EmployeeManagementSystem
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine("Add Employee - Coming soon");
+                        AddEmployee();
                         break;
                     case "2":
                         Console.WriteLine("Search by ID - Coming soon");
@@ -67,6 +67,43 @@ namespace EmployeeManagementSystem
             Console.WriteLine("8. Save Employees to File");
             Console.WriteLine("9. Exit");
             Console.Write("Choose an option: ");
+        }
+
+        static void AddEmployee()
+        {
+            int id = ReadInt("Enter employee ID: ");
+            Console.Write("Enter full name: ");
+            string name = Console.ReadLine();
+            Console.Write("Enter department: ");
+            string department = Console.ReadLine();
+            Console.Write("Enter role: ");
+            string role = Console.ReadLine();
+
+            Employee existing = employeeTree.SearchById(id);
+            if (existing != null)
+            {
+                Console.WriteLine("Employee with this ID already exists.");
+                return;
+            }
+
+            Employee employee = new Employee(id, name, department, role);
+            employeeTree.Insert(employee);
+            Console.WriteLine("Employee added successfully.");
+        }
+
+        static int ReadInt(string message)
+        {
+            int value;
+            while (true)
+            {
+                Console.Write(message);
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out value))
+                    return value;
+
+                Console.WriteLine("Invalid number. Please try again.");
+            }
         }
     }
 }
