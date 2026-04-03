@@ -19,5 +19,10 @@ namespace EmployeeManagementSystem
             Role = role;
             Leaves = new List<LeaveRecord>();
         }
+
+        public override string ToString()
+        {
+            return $"ID: {Id}, Name: {FullName}, Department: {Department}, Role: {Role}";
+        }
     }
 }
