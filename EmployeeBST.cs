@@ -31,5 +31,22 @@ namespace EmployeeManagementSystem
 
             return node;
         }
+
+        public Employee SearchById(int id)
+        {
+            EmployeeNode result = SearchNodeById(root, id);
+            return result != null ? result.Data : null;
+        }
+
+        private EmployeeNode SearchNodeById(EmployeeNode node, int id)
+        {
+            if (node == null || node.Data.Id == id)
+                return node;
+
+            if (id < node.Data.Id)
+                return SearchNodeById(node.Left, id);
+
+            return SearchNodeById(node.Right, id);
+        }
     }
 }
