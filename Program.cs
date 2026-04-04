@@ -29,10 +29,10 @@ namespace EmployeeManagementSystem
                         SearchEmployeeByName();
                         break;
                     case "4":
-                        Console.WriteLine("Add Leave - Coming soon");
+                        AddLeave();
                         break;
                     case "5":
-                        Console.WriteLine("View Leaves - Coming soon");
+                        ViewEmployeeLeaves();
                         break;
                     case "6":
                         Console.WriteLine("Display All - Coming soon");
@@ -119,6 +119,61 @@ namespace EmployeeManagementSystem
             foreach (var employee in results)
             {
                 Console.WriteLine(employee);
+            }
+        }
+
+        static void AddLeave()
+        {
+            int id = ReadInt("Enter employee ID: ");
+            Employee employee = employeeTree.SearchById(id);
+
+            if (employee == null)
+            {
+                Console.WriteLine("Employee not found.");
+                return;
+            }
+
+            Console.Write("Enter leave type: ");
+            string leaveType = Console.ReadLine();
+
+            Console.Write("Enter start date (YYYY-MM-DD): ");
+            string startDate = Console.ReadLine();
+
+            Console.Write("Enter end date (YYYY-MM-DD): ");
+            string endDate = Console.ReadLine();
+
+            Console.Write("Enter reason: ");
+            string reason = Console.ReadLine();
+
+            LeaveRecord leave = new LeaveRecord(leaveType, startDate, endDate, reason);
+            employeeTree.AddLeaveToEmployee(id, leave);
+
+            Console.WriteLine("Leave added successfully.");
+        }
+
+        static void ViewEmployeeLeaves()
+        {
+            int id = ReadInt("Enter employee ID: ");
+            Employee employee = employeeTree.SearchById(id);
+
+            if (employee == null)
+            {
+                Console.WriteLine("Employee not found.");
+                return;
+            }
+
+            Console.WriteLine(employee);
+
+            if (employee.Leaves.Count == 0)
+            {
+                Console.WriteLine("No leave records found.");
+                return;
+            }
+
+            Console.WriteLine("Leave Records:");
+            foreach (var leave in employee.Leaves)
+            {
+                Console.WriteLine("- " + leave);
             }
         }
 
