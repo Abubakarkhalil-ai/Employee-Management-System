@@ -23,10 +23,10 @@ namespace EmployeeManagementSystem
                         AddEmployee();
                         break;
                     case "2":
-                        Console.WriteLine("Search by ID - Coming soon");
+                        SearchEmployeeById();
                         break;
                     case "3":
-                        Console.WriteLine("Search by Name - Coming soon");
+                        SearchEmployeeByName();
                         break;
                     case "4":
                         Console.WriteLine("Add Leave - Coming soon");
@@ -89,6 +89,37 @@ namespace EmployeeManagementSystem
             Employee employee = new Employee(id, name, department, role);
             employeeTree.Insert(employee);
             Console.WriteLine("Employee added successfully.");
+        }
+
+        static void SearchEmployeeById()
+        {
+            int id = ReadInt("Enter employee ID to search: ");
+            Employee employee = employeeTree.SearchById(id);
+
+            if (employee == null)
+                Console.WriteLine("Employee not found.");
+            else
+                Console.WriteLine(employee);
+        }
+
+        static void SearchEmployeeByName()
+        {
+            Console.Write("Enter employee name to search: ");
+            string name = Console.ReadLine();
+
+            List<Employee> results = employeeTree.SearchByName(name);
+
+            if (results.Count == 0)
+            {
+                Console.WriteLine("No employees found.");
+                return;
+            }
+
+            Console.WriteLine("Search results:");
+            foreach (var employee in results)
+            {
+                Console.WriteLine(employee);
+            }
         }
 
         static int ReadInt(string message)
