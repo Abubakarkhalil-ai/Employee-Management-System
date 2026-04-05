@@ -1,0 +1,37 @@
+CREATE DATABASE EmployeeManagementDB;
+GO
+
+USE EmployeeManagementDB;
+GO
+
+CREATE TABLE Employees (
+    Id INT PRIMARY KEY,
+    FullName NVARCHAR(100) NOT NULL,
+    Department NVARCHAR(100) NOT NULL,
+    Role NVARCHAR(100) NOT NULL
+);
+GO
+
+CREATE TABLE LeaveRecords (
+    LeaveId INT IDENTITY(1,1) PRIMARY KEY,
+    EmployeeId INT NOT NULL,
+    LeaveType NVARCHAR(50) NOT NULL,
+    StartDate NVARCHAR(20) NOT NULL,
+    EndDate NVARCHAR(20) NOT NULL,
+    Reason NVARCHAR(200) NOT NULL,
+    FOREIGN KEY (EmployeeId) REFERENCES Employees(Id)
+);
+GO
+
+INSERT INTO Employees (Id, FullName, Department, Role)
+VALUES
+(101, 'Ali Khan', 'HR', 'Manager'),
+(102, 'Sara Ahmed', 'IT', 'Developer'),
+(103, 'John Smith', 'Finance', 'Analyst');
+GO
+
+INSERT INTO LeaveRecords (EmployeeId, LeaveType, StartDate, EndDate, Reason)
+VALUES
+(101, 'Annual Leave', '2026-03-10', '2026-03-15', 'Family trip'),
+(102, 'Sick Leave', '2026-03-05', '2026-03-06', 'Flu');
+GO
