@@ -68,5 +68,36 @@ namespace EmployeeManagementSystem
 
             SearchByNameRecursive(node.Right, searchName, matches);
         }
+
+        public void DisplayAll()
+        {
+            if (root == null)
+            {
+                Console.WriteLine("No employees found.");
+                return;
+            }
+
+            InOrderTraversal(root);
+        }
+
+        private void InOrderTraversal(EmployeeNode node)
+        {
+            if (node == null)
+                return;
+
+            InOrderTraversal(node.Left);
+            Console.WriteLine(node.Data);
+
+            if (node.Data.Leaves.Count > 0)
+            {
+                Console.WriteLine("  Leave Records:");
+                foreach (var leave in node.Data.Leaves)
+                {
+                    Console.WriteLine("   - " + leave);
+                }
+            }
+
+            InOrderTraversal(node.Right);
+        }
     }
 }
