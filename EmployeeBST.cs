@@ -48,5 +48,25 @@ namespace EmployeeManagementSystem
 
             return SearchNodeById(node.Right, id);
         }
+
+        public List<Employee> SearchByName(string name)
+        {
+            List<Employee> matches = new List<Employee>();
+            SearchByNameRecursive(root, name.ToLower(), matches);
+            return matches;
+        }
+
+        private void SearchByNameRecursive(EmployeeNode node, string searchName, List<Employee> matches)
+        {
+            if (node == null)
+                return;
+
+            SearchByNameRecursive(node.Left, searchName, matches);
+
+            if (node.Data.FullName.ToLower().Contains(searchName))
+                matches.Add(node.Data);
+
+            SearchByNameRecursive(node.Right, searchName, matches);
+        }
     }
 }
