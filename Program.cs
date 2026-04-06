@@ -35,7 +35,7 @@ namespace EmployeeManagementSystem
                         ViewEmployeeLeaves();
                         break;
                     case "6":
-                        Console.WriteLine("Display All - Coming soon");
+                        DisplayAllEmployees();
                         break;
                     case "7":
                         Console.WriteLine("Load from File - Coming soon");
@@ -175,6 +175,11 @@ namespace EmployeeManagementSystem
             {
                 Console.WriteLine("- " + leave);
             }
+        }
+
+        static void DisplayAllEmployees()
+        {
+            employeeTree.DisplayAll();
         }
 
         static int ReadInt(string message)
