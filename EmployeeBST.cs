@@ -99,5 +99,15 @@ namespace EmployeeManagementSystem
 
             InOrderTraversal(node.Right);
         }
+
+        public bool AddLeaveToEmployee(int employeeId, LeaveRecord leave)
+        {
+            Employee employee = SearchById(employeeId);
+            if (employee == null)
+                return false;
+
+            employee.Leaves.Add(leave);
+            return true;
+        }
     }
 }
