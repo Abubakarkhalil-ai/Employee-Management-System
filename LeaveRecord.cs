@@ -16,5 +16,10 @@ namespace EmployeeManagementSystem
             EndDate = endDate;
             Reason = reason;
         }
+
+        public override string ToString()
+        {
+            return $"Type: {LeaveType}, Start: {StartDate}, End: {EndDate}, Reason: {Reason}";
+        }
     }
 }
