@@ -109,5 +109,22 @@ namespace EmployeeManagementSystem
             employee.Leaves.Add(leave);
             return true;
         }
+
+        public List<Employee> GetAllEmployees()
+        {
+            List<Employee> employees = new List<Employee>();
+            CollectEmployees(root, employees);
+            return employees;
+        }
+
+        private void CollectEmployees(EmployeeNode node, List<Employee> employees)
+        {
+            if (node == null)
+                return;
+
+            CollectEmployees(node.Left, employees);
+            employees.Add(node.Data);
+            CollectEmployees(node.Right, employees);
+        }
     }
 }
