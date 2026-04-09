@@ -4,10 +4,18 @@ using System.Collections.Generic;
 
 namespace EmployeeManagementSystem
 {
+    /// <summary>
+    /// Main program class that provides a console-based menu interface
+    /// for the Employee Management System.
+    /// </summary>
     class Program
     {
+        // BST instance to store all employee records
         static EmployeeBST employeeTree = new EmployeeBST();
 
+        /// <summary>
+        /// Entry point - runs the main menu loop until user exits.
+        /// </summary>
         static void Main(string[] args)
         {
             Console.WriteLine(" Employee Management System");
@@ -38,10 +46,10 @@ namespace EmployeeManagementSystem
                         DisplayAllEmployees();
                         break;
                     case "7":
-                        Console.WriteLine("Load from File - Coming soon");
+                        LoadEmployeesFromFile();
                         break;
                     case "8":
-                        Console.WriteLine("Save to File - Coming soon");
+                        SaveEmployeesToFile();
                         break;
                     case "9":
                         Console.WriteLine("Exiting program...");
@@ -55,6 +63,9 @@ namespace EmployeeManagementSystem
             }
         }
 
+        /// <summary>
+        /// Displays the main menu options to the user.
+        /// </summary>
         static void ShowMenu()
         {
             Console.WriteLine("1. Add Employee");
@@ -69,6 +80,10 @@ namespace EmployeeManagementSystem
             Console.Write("Choose an option: ");
         }
 
+        /// <summary>
+        /// Prompts user for employee details and adds them to the BST.
+        /// Checks for duplicate IDs before inserting.
+        /// </summary>
         static void AddEmployee()
         {
             int id = ReadInt("Enter employee ID: ");
@@ -79,6 +94,7 @@ namespace EmployeeManagementSystem
             Console.Write("Enter role: ");
             string role = Console.ReadLine();
 
+            // Check if employee with this ID already exists
             Employee existing = employeeTree.SearchById(id);
             if (existing != null)
             {
@@ -91,6 +107,9 @@ namespace EmployeeManagementSystem
             Console.WriteLine("Employee added successfully.");
         }
 
+        /// <summary>
+        /// Searches for an employee by their ID and displays the result.
+        /// </summary>
         static void SearchEmployeeById()
         {
             int id = ReadInt("Enter employee ID to search: ");
@@ -102,6 +121,9 @@ namespace EmployeeManagementSystem
                 Console.WriteLine(employee);
         }
 
+        /// <summary>
+        /// Searches for employees by name (partial match) and displays all results.
+        /// </summary>
         static void SearchEmployeeByName()
         {
             Console.Write("Enter employee name to search: ");
@@ -122,6 +144,9 @@ namespace EmployeeManagementSystem
             }
         }
 
+        /// <summary>
+        /// Adds a leave record to an existing employee.
+        /// </summary>
         static void AddLeave()
         {
             int id = ReadInt("Enter employee ID: ");
@@ -151,6 +176,9 @@ namespace EmployeeManagementSystem
             Console.WriteLine("Leave added successfully.");
         }
 
+        /// <summary>
+        /// Displays all leave records for a specific employee.
+        /// </summary>
         static void ViewEmployeeLeaves()
         {
             int id = ReadInt("Enter employee ID: ");
@@ -177,11 +205,101 @@ namespace EmployeeManagementSystem
             }
         }
 
+        /// <summary>
+        /// Displays all employees stored in the BST in sorted order.
+        /// </summary>
         static void DisplayAllEmployees()
         {
             employeeTree.DisplayAll();
         }
 
+        /// <summary>
+        /// Loads employees from a CSV text file into the BST.
+        /// File format: ID,FullName,Department,Role
+        /// User specifies the file name at runtime (not hardcoded).
+        /// </summary>
+        static void LoadEmployeesFromFile()
+        {
+            Console.Write("Enter file name to load from: ");
+            string fileName = Console.ReadLine();
+
+            if (!File.Exists(fileName))
+            {
+                Console.WriteLine("File not found.");
+                return;
+            }
+
+            try
+            {
+                string[] lines = File.ReadAllLines(fileName);
+
+                foreach (string line in lines)
+                {
+                    // Skip empty lines
+                    if (string.IsNullOrWhiteSpace(line))
+                        continue;
+
+                    string[] parts = line.Split(',');
+
+                    // Validate line has enough fields
+                    if (parts.Length < 4)
+                        continue;
+
+                    // Validate ID is a valid integer
+                    int id;
+                    if (!int.TryParse(parts[0], out id))
+                        continue;
+
+                    string name = parts[1];
+                    string department = parts[2];
+                    string role = parts[3];
+
+                    // Only add if employee doesn't already exist
+                    if (employeeTree.SearchById(id) == null)
+                    {
+                        employeeTree.Insert(new Employee(id, name, department, role));
+                    }
+                }
+
+                Console.WriteLine("Employees loaded successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading file: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Saves all employees from the BST to a CSV text file.
+        /// </summary>
+        static void SaveEmployeesToFile()
+        {
+            Console.Write("Enter file name to save to: ");
+            string fileName = Console.ReadLine();
+
+            try
+            {
+                List<Employee> employees = employeeTree.GetAllEmployees();
+                List<string> lines = new List<string>();
+
+                foreach (var employee in employees)
+                {
+                    lines.Add($"{employee.Id},{employee.FullName},{employee.Department},{employee.Role}");
+                }
+
+                File.WriteAllLines(fileName, lines);
+                Console.WriteLine("Employees saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving file: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Helper method to read and validate an integer from user input.
+        /// Keeps prompting until a valid number is entered.
+        /// </summary>
         static int ReadInt(string message)
         {
             int value;
