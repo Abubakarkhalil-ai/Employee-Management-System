@@ -1,30 +1,32 @@
 # Employee Management System
 
-CST2550 Group Coursework - Employee Management System built in C# .NET
+## Group Name: The Bugs Slayer!
 
-## Project Description
-This is an Employee Management System that allows users to add, search, and manage employee records along with their leave history. The system uses a Binary Search Tree (BST) data structure to efficiently store and retrieve employee data.
+## Team Members
 
-## Features
-- Add new employees
-- Search employees by ID or Name
-- Add and view leave records for employees
-- Load and save employee data from/to text files
-- SQL database support
+| Name | Role |
+|------|------|
+| Abubakar | Team Leader / Scrum Master |
+| Alishba | Secretary |
+| Ahmed Remon | Developer |
+| Farhan Saleem | Developer |
+| Syed Safiullah | Tester |
 
-## How to Compile
-1. Make sure you have .NET SDK installed
-2. Open terminal in the project folder
-3. Run: `dotnet build`
+## Module
+CST2550 - Group Coursework
 
-## How to Run
-1. After building, run: `dotnet run`
-2. Follow the on-screen menu to use the system
+## How to Use the Program
 
-## How to Use
-- Choose option 1-9 from the menu
-- Option 7 lets you load employees from a text file (e.g. sample-employees.txt)
-- The file format is: ID,FullName,Department,Role
+When the application starts, a menu is displayed with the following options:
 
-## Project Status
-🚧 Under Development
+1. **Add Employee** – Enter employee ID, name, department, and role
+2. **Search Employee by ID** – Search using the employee's unique ID
+3. **Search Employee by Name** – Partial name search (case-insensitive)
+4. **Add Leave to Employee** – Add a leave record with type, dates, and reason
+5. **View Employee Leaves** – View all leave records for a specific employee
+6. **Display All Employees** – Shows all employees sorted by ID (in-order traversal)
+7. **Load Employees from File** – Load employees from a CSV text file (e.g. sample-employees.txt)
+8. **Save Employees to File** – Save all employees to a CSV text file
+9. **Delete Employee** – Remove an employee from the system with confirmation
+10. **Exit** – Close the application
+
