@@ -8,9 +8,21 @@
 |------|------|
 | Abubakar | Team Leader / Scrum Master |
 | Alishba | Secretary |
-| Ahmed Remon | Developer |
+| Ahmed Hanjala Remon | Developer |
 | Farhan Saleem | Developer |
 | Syed Safiullah | Tester |
+
+Student ID: **M01044595**
+Name: **Abubakar**
+Student ID: **M01041984**
+Name: **Alishba Abid**
+Student ID: **M01048578**
+Name: **Farhan Saleem**
+Student ID: M01048578
+Name: **Ahmed Hanjala Remon**
+Student ID: **M01042412**
+Name: Syed **Safiuallah Inayat**
+Student ID: **M01044448**
 
 ## Module
 CST2550 - Group Coursework
